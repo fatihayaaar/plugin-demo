@@ -2,15 +2,23 @@ package com.fayardev.plugindemo.loader.packageloader;
 
 import com.fayardev.plugindemo.loader.classloader.LibraryClassLoader;
 import com.fayardev.plugindemo.loader.packageloader.abstracts.ILoader;
+import com.fayardev.plugindemo.loader.repository.ClassRepository;
 import com.fayardev.plugindemo.loader.utils.ZipExtractor;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class BaseLoader implements ILoader {
+
+    private final ClassRepository repository;
+
+    public BaseLoader() {
+        repository = new ClassRepository();
+    }
 
     @Override
     public void loadPackage(String packageName) {
