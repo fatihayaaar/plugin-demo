@@ -12,7 +12,7 @@ public class LibraryLoader extends BaseLoader {
     @Override
     public void loadPackage(String packageName) {
         LibraryClassLoader classLoader = new LibraryClassLoader(new URL[0]);
-        String jarPath = ZipExtractor.EXTRACTED_DIRECTORY + File.separator + packageName + File.separator + "library";
+        String jarPath = ZipExtractor.pluginsPath + File.separator + packageName + File.separator + "library";
         List<String> jarsName = super.getJarsName(jarPath);
         for (String jarName : jarsName) {
             try {

@@ -13,6 +13,7 @@ import java.util.zip.ZipInputStream;
 public class ZipExtractor {
     private static String uploadPath = "uploads";
     public static final String EXTRACTED_DIRECTORY = "uploads/extracted";
+    public static final String pluginsPath = "plugins";
 
     public static void extract(String fileName) {
         String zipFilePath = uploadPath + File.separator + fileName;
@@ -36,8 +37,8 @@ public class ZipExtractor {
             dir.mkdirs();
         }
 
-        File pluginDir = new File(newDestDir + File.separator + "plugin");
-        File libraryDir = new File(newDestDir + File.separator + "library");
+        File pluginDir = new File(pluginsPath + File.separator + zipFileName.replace(".zip", "") + File.separator + "plugin");
+        File libraryDir = new File(pluginsPath + File.separator + zipFileName.replace(".zip", "") + File.separator + "library");
         if (!pluginDir.exists()) {
             pluginDir.mkdirs();
         }

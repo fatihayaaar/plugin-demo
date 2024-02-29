@@ -23,9 +23,8 @@ public class BaseLoader implements ILoader {
     @Override
     public void loadPackage(String packageName) {
         LibraryClassLoader classLoader = new LibraryClassLoader(new URL[0]);
-        String jarPath = ZipExtractor.EXTRACTED_DIRECTORY + File.separator + packageName;
         try {
-            classLoader.loadAllClasses(jarPath);
+            classLoader.loadAllClasses(ZipExtractor.pluginsPath + File.separator + packageName);
         } catch (Exception e) {
             e.getStackTrace();
         }
