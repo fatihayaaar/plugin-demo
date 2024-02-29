@@ -23,9 +23,9 @@ public class PluginContainer {
         return instance;
     }
 
-    public PluginAdapter createPluginObject(String pluginName, PluginName plugin) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Object object = classRepository.getClass(pluginPackage + "." + pluginName +"." +  plugin.toString()).getDeclaredConstructor().newInstance();
-        return switch (plugin) {
+    public PluginAdapter createPluginObject(String pluginName, PluginTypeName pluginType) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        Object object = classRepository.getClass(pluginPackage + "." + pluginName +"." +  pluginType.toString()).getDeclaredConstructor().newInstance();
+        return switch (pluginType) {
             case USER_PLUGIN -> (UserPluginAdapter) object;
             case FILE_PLUGIN -> (FilePluginAdapter) object;
         };

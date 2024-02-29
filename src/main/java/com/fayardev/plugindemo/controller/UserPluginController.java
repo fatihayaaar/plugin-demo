@@ -2,7 +2,7 @@ package com.fayardev.plugindemo.controller;
 
 import com.fayardev.plugindemo.dto.UserDto;
 import com.fayardev.plugindemo.plugin.PluginContainer;
-import com.fayardev.plugindemo.plugin.PluginName;
+import com.fayardev.plugindemo.plugin.PluginTypeName;
 import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class UserPluginController {
         if (userPluginAdapter == null) {
             PluginContainer pluginContainer = PluginContainer.getInstance();
             try {
-                userPluginAdapter = (UserPluginAdapter) pluginContainer.createPluginObject(pluginName, PluginName.USER_PLUGIN);
+                userPluginAdapter = (UserPluginAdapter) pluginContainer.createPluginObject(pluginName, PluginTypeName.USER_PLUGIN);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }

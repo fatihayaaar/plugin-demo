@@ -1,13 +1,13 @@
 package com.fayardev.plugindemo.plugin;
 
-public enum PluginName {
+public enum PluginTypeName {
 
     USER_PLUGIN("User"),
     FILE_PLUGIN("File");
 
     private final String value;
 
-    PluginName(String value) {
+    PluginTypeName(String value) {
         this.value = value;
     }
 
