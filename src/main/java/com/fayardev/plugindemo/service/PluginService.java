@@ -1,5 +1,9 @@
 package com.fayardev.plugindemo.service;
 
+import com.fayardev.plugindemo.loader.packageloader.LibraryLoader;
+import com.fayardev.plugindemo.loader.packageloader.PluginLoader;
+import com.fayardev.plugindemo.loader.packageloader.container.LoaderContainer;
+import com.fayardev.plugindemo.loader.packageloader.container.LoaderName;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +25,17 @@ public class PluginService {
     }
 
     public void load(String pluginName) {
+        loadLibrary(pluginName);
+        loadPlugin(pluginName);
+    }
 
+    private void loadPlugin(String pluginName) {
+        PluginLoader pluginLoader = (PluginLoader) LoaderContainer.getInstance().getClassLoader(LoaderName.PLUGIN_LOADER);
+        pluginLoader.loadPackage(pluginName);
+    }
+
+    private void loadLibrary(String pluginName) {
+        LibraryLoader libraryLoader = (LibraryLoader) LoaderContainer.getInstance().getClassLoader(LoaderName.LIBRARY_LOADER);
+        libraryLoader.loadPackage(pluginName);
     }
 }
