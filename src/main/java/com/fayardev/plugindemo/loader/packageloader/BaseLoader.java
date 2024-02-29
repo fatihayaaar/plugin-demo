@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class BaseLoader implements ILoader {
 
-    private final ClassRepository repository;
+    protected final ClassRepository repository;
 
     public BaseLoader() {
         repository = new ClassRepository();

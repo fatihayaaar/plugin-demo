@@ -16,7 +16,7 @@ public class PluginLoader extends BaseLoader {
         List<String> jarsName = super.getJarsName(jarPath);
         for (String jarName : jarsName) {
             try {
-                classLoader.loadAllClasses(jarPath + File.separator + jarName);
+                super.repository.addClassMap(classLoader.loadAllClasses(jarPath + File.separator + jarName));
             } catch (Exception e) {
                 e.getStackTrace();
             }
