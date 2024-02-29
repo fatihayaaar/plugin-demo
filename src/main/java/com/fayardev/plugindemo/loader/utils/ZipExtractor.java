@@ -1,6 +1,6 @@
 package com.fayardev.plugindemo.loader.utils;
 
-import com.fayardev.plugindemo.service.PluginService;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,15 +13,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZipExtractor {
-
-    public static String EXTRACTED_DIR = "uploads/extracted";
+    private static String uploadPath = "uploads";
+    public static final String EXTRACTED_DIRECTORY = "uploads/extracted";
 
     public static void extract(String fileName) {
-        String zipFilePath = PluginService.UPLOAD_DIR + File.separator + fileName;
-        String destDir = EXTRACTED_DIR;
-
+        String zipFilePath = uploadPath + File.separator + fileName;
         try {
-            unzip(zipFilePath, destDir);
+            unzip(zipFilePath, EXTRACTED_DIRECTORY);
         } catch (IOException e) {
             e.printStackTrace();
         }

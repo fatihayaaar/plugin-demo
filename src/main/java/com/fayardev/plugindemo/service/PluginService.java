@@ -4,38 +4,46 @@ import com.fayardev.plugindemo.loader.packageloader.LibraryLoader;
 import com.fayardev.plugindemo.loader.packageloader.PluginLoader;
 import com.fayardev.plugindemo.loader.packageloader.container.LoaderContainer;
 import com.fayardev.plugindemo.loader.packageloader.container.LoaderName;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
 @Service
 public class PluginService {
+    private final FileService fileService;
 
-    public static String UPLOAD_DIR = "uploads";
+    @Value("${template-plugin.path}")
+    private String templatePluginPath;
+    private PluginLoader pluginLoader;
+    private LibraryLoader libraryLoader;
+
+    @Autowired
+    public PluginService(FileService fileService) {
+        this.fileService = fileService;
+
+        init();
+    }
+
+    private void init() {
+        LoaderContainer loaderContainer = LoaderContainer.getInstance();
+        pluginLoader = (PluginLoader) loaderContainer.getClassLoader(LoaderName.PLUGIN_LOADER);
+        libraryLoader = (LibraryLoader) loaderContainer.getClassLoader(LoaderName.LIBRARY_LOADER);
+    }
 
     public void uploadPlugin(MultipartFile file) throws IOException {
-        String path = UPLOAD_DIR + File.separator + file.getOriginalFilename();
-        File targetFile = new File(path);
-        try (OutputStream fileOutputStream = new FileOutputStream(targetFile)) {
-            FileCopyUtils.copy(file.getInputStream(), fileOutputStream);
-        }
+        fileService.uploadFile(file);
         //removeClassFromJar(path, "com/fatihayar/plugindemo/plugin/adapter/UserPluginAdapter.class");
     }
 
+    public File getTemplate() {
+        return fileService.getFileByPath(templatePluginPath);
+    }
+
     public void load(String pluginName) {
-        loadLibrary(pluginName);
-        loadPlugin(pluginName);
-    }
-
-    private void loadPlugin(String pluginName) {
-        PluginLoader pluginLoader = (PluginLoader) LoaderContainer.getInstance().getClassLoader(LoaderName.PLUGIN_LOADER);
-        pluginLoader.loadPackage(pluginName);
-    }
-
-    private void loadLibrary(String pluginName) {
-        LibraryLoader libraryLoader = (LibraryLoader) LoaderContainer.getInstance().getClassLoader(LoaderName.LIBRARY_LOADER);
         libraryLoader.loadPackage(pluginName);
+        pluginLoader.loadPackage(pluginName);
     }
 }
