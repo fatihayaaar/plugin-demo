@@ -35,7 +35,6 @@ public class PluginService {
 
     public void uploadPlugin(MultipartFile file) throws IOException {
         fileService.uploadFile(file);
-        //removeClassFromJar(path, "com/fatihayar/plugindemo/plugin/adapter/UserPluginAdapter.class");
     }
 
     public File getTemplate() {

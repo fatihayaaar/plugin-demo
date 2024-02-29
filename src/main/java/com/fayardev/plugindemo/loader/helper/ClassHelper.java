@@ -31,6 +31,7 @@ public class ClassHelper {
     }
 
     public Class<?> get(String className) {
+        System.out.println(className);
         return classes.get(className);
     }
 }

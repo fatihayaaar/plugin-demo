@@ -2,8 +2,8 @@ package com.fayardev.plugindemo.plugin;
 
 public enum PluginName {
 
-    USER_PLUGIN("user"),
-    FILE_PLUGIN("file");
+    USER_PLUGIN("User"),
+    FILE_PLUGIN("File");
 
     private final String value;
 
