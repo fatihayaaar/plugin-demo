@@ -19,7 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 @RequestMapping("/api/plugin/user")
 public class UserPluginController {
 
-    private PluginContainer pluginContainer;
     private UserPluginAdapter userPluginAdapter;
 
     public UserPluginController() {
@@ -27,7 +26,7 @@ public class UserPluginController {
     }
 
     private void init() {
-        pluginContainer = PluginContainer.getInstance();
+        PluginContainer pluginContainer = PluginContainer.getInstance();
         try {
             userPluginAdapter = (UserPluginAdapter) pluginContainer.createPluginObject(PluginName.USER_PLUGIN);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
