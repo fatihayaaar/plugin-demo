@@ -1,5 +1,7 @@
 package com.fayardev.plugindemo.loader.utils;
 
+import com.fayardev.plugindemo.utils.FileUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -76,6 +78,7 @@ public class ZipExtractor {
             }
             zis.closeEntry();
         }
+        FileUtil.deleteDirectory(new File(uploadPath));
     }
 
     private static void moveFile(Path sourcePath, Path destPath) throws IOException {

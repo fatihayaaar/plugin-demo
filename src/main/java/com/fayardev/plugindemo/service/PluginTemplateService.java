@@ -74,7 +74,7 @@ public class PluginTemplateService {
     }
 
     private void pluginClassAdd(String pluginCode, PluginTypeName pluginTypeName) {
-        FileUtil.addDirectory(pluginTemplatePath + File.separator + pluginSourcePath + File.separator + pluginCode);
+        FileUtil.addDirectory(pluginTemplatePath + File.separator + pluginSourceBasePath + File.separator + pluginCode);
 
         String pluginClassPath = pluginTemplatePath + File.separator + pluginSourceBasePath + File.separator + pluginCode + File.separator + pluginTypeName  + ".java";
         String pluginClassPackage = "package " + pluginPackage + "." + pluginCode + ";";
