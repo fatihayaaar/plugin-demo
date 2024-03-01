@@ -75,4 +75,16 @@ public class FileUtil {
             e.printStackTrace();
         }
     }
+
+    public static String getFileNameWithoutExtension(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        int extensionIndex = fileName.lastIndexOf('.');
+        if (extensionIndex == -1) {
+            return fileName;
+        } else {
+            return fileName.substring(0, extensionIndex);
+        }
+    }
 }

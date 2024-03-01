@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/plugindemo
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+upload:
+  path: uploads
+template:
+  path: template
+
+plugin:
+  path: plugins
+  asset:
+    directory:
+      path: assets
+  package: com.fayardev.plugindemo
+  template:
+    path: template/plugin-template
+  source:
+    path: src/main/java/com/fayardev/plugindemo/plugin

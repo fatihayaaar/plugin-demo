@@ -8,7 +8,6 @@ public class PlugindemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PlugindemoApplication.class, args);
-
     }
 
 }

@@ -1,11 +1,13 @@
 package com.fayardev.plugindemo.service;
 
+import com.fayardev.plugindemo.dto.PluginDto;
 import com.fayardev.plugindemo.plugin.PluginTypeName;
 import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;
 import com.fayardev.plugindemo.utils.CompressUtil;
 import com.fayardev.plugindemo.utils.FileUtil;
 import com.fayardev.plugindemo.utils.IDGenerator;
 import com.fayardev.plugindemo.utils.UnzipUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,13 @@ public class PluginTemplateService {
 
     @Value("${plugin.source.path}")
     private String pluginSourcePath;
+
+    private final PluginService service;
+
+    @Autowired
+    public PluginTemplateService(PluginService service) {
+        this.service = service;
+    }
 
     public File templateBuild(List<PluginTypeName> pluginTypeNames) throws InterruptedException {
         String pluginCode = "plugin" + IDGenerator.generate();
@@ -55,6 +64,9 @@ public class PluginTemplateService {
         compressThread.join();
 
         FileUtil.deleteDirectory(new File(pluginTemplatePath));
+
+        PluginDto pluginDto = PluginDto.builder().pluginName(pluginCode).pluginCode(pluginCode).build();
+        service.add(pluginDto);
 
         return new File(newZipFilePath);
     }

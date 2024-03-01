@@ -24,14 +24,14 @@ public class PluginController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        pluginService.uploadPlugin(file);
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("plugin-name") String pluginName) throws IOException {
+        pluginService.uploadPlugin(file, pluginName);
         ZipExtractor.extract(file.getOriginalFilename());
         return ResponseEntity.ok("success");
     }
 
     @PostMapping("/load")
-    public ResponseEntity<?> loadPlugin(@RequestBody String pluginName) {
+    public ResponseEntity<String> loadPlugin(@RequestBody String pluginName) {
         pluginService.load(pluginName);
         return ResponseEntity.ok("success");
     }
