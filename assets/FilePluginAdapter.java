@@ -1,6 +1,6 @@
 package com.fayardev.plugindemo.plugin.adapter;
 
-public interface FilePluginAdapter extends PluginAdapter {
+public interface FilePluginAdapter {
 
     boolean confirm(String filename);
 }

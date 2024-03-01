@@ -13,10 +13,8 @@ import java.io.*;
 
 @Service
 public class PluginService {
-    private final FileService fileService;
 
-    @Value("${template-plugin.path}")
-    private String templatePluginPath;
+    private final FileService fileService;
     private PluginLoader pluginLoader;
     private LibraryLoader libraryLoader;
 
@@ -35,10 +33,6 @@ public class PluginService {
 
     public void uploadPlugin(MultipartFile file) throws IOException {
         fileService.uploadFile(file);
-    }
-
-    public File getTemplate() {
-        return fileService.getFileByPath(templatePluginPath);
     }
 
     public void load(String pluginName) {
