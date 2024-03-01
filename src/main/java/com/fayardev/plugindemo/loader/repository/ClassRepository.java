@@ -4,6 +4,8 @@ import com.fayardev.plugindemo.loader.helper.ClassHelper;
 import com.fayardev.plugindemo.loader.repository.abstracts.IClassRepository;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClassRepository implements IClassRepository<Class<?>> {
 

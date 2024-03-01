@@ -1,9 +1,11 @@
 package com.fayardev.plugindemo.controller;
 
 import com.fayardev.plugindemo.dto.UserDto;
+import com.fayardev.plugindemo.loader.utils.TemplateRenamer;
 import com.fayardev.plugindemo.plugin.PluginContainer;
 import com.fayardev.plugindemo.plugin.PluginTypeName;
 import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +16,20 @@ import java.lang.reflect.InvocationTargetException;
 public class UserPluginController {
 
     private UserPluginAdapter userPluginAdapter;
+    private PluginContainer pluginContainer;
+
+    @PostConstruct
+    private void init() {
+        pluginContainer = PluginContainer.getInstance();
+    }
 
     public void setup(String pluginName) {
-        if (userPluginAdapter == null) {
-            PluginContainer pluginContainer = PluginContainer.getInstance();
-            try {
-                userPluginAdapter = (UserPluginAdapter) pluginContainer.createPluginObject(pluginName, PluginTypeName.USER_PLUGIN);
-            } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
+        pluginContainer = PluginContainer.getInstance();
+        try {
+            userPluginAdapter = (UserPluginAdapter) pluginContainer.createPluginObject(pluginName, PluginTypeName.USER_PLUGIN);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
     }
 

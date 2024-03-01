@@ -3,6 +3,7 @@ package com.fayardev.plugindemo.controller;
 import com.fayardev.plugindemo.loader.packageloader.PluginLoader;
 import com.fayardev.plugindemo.loader.packageloader.container.LoaderContainer;
 import com.fayardev.plugindemo.loader.packageloader.container.LoaderName;
+import com.fayardev.plugindemo.loader.utils.TemplateRenamer;
 import com.fayardev.plugindemo.service.PluginService;
 import com.fayardev.plugindemo.loader.utils.ZipExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class PluginController {
 
     @GetMapping("/template")
     public ResponseEntity<byte[]> getTemplate() throws IOException {
+        TemplateRenamer.rename();
         File file = pluginService.getTemplate();
         byte[] fileContent = FileCopyUtils.copyToByteArray(file);
         return ResponseEntity.ok()

@@ -6,8 +6,12 @@ import java.net.URLClassLoader;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Logger;
 
 class JarClassLoader extends URLClassLoader {
+
+    private static final Logger logger = Logger.getLogger(JarClassLoader.class.getName());
+
     public JarClassLoader(URL url) {
         super(new URL[] { url });
     }
@@ -26,7 +30,7 @@ class JarClassLoader extends URLClassLoader {
                     Class<?> loadedClass = loadClass(className);
                     classes.put(loadedClass.getName(), loadedClass);
 
-                    System.out.println("Loaded class: " + loadedClass.getName());
+                    logger.info("Loaded class: " + loadedClass.getName());
                 }
             }
             return classes;
