@@ -52,16 +52,20 @@ public class PluginService {
     }
 
     public void add(PluginDto pluginDto) {
-        repository.save(modelMapper.map(pluginDto, Plugin.class));
+        repository.saveAndFlush(modelMapper.map(pluginDto, Plugin.class));
     }
 
     public void update(PluginDto pluginDto) {
         PluginDto pluginDto1 = findByPluginCode(pluginDto.getPluginCode());
         pluginDto1.setPluginName(pluginDto.getPluginName());
-        repository.save(modelMapper.map(pluginDto1, Plugin.class));
+        repository.saveAndFlush(modelMapper.map(pluginDto1, Plugin.class));
     }
 
     public PluginDto findByPluginCode(String pluginCode) {
         return modelMapper.map(repository.findByPluginCode(pluginCode).orElseThrow(IllegalAccessError::new), PluginDto.class);
+    }
+
+    public boolean delete(String pluginCode) {
+        return repository.deleteByPluginCode(pluginCode);
     }
 }

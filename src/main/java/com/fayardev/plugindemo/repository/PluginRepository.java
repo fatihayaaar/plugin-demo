@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface PluginRepository extends JpaRepository<Plugin, Long> {
 
     Optional<Plugin> findByPluginCode(String pluginCode);
+
+    boolean deleteByPluginCode(String pluginCode);
 }

@@ -35,4 +35,9 @@ public class PluginController {
         pluginService.load(pluginName);
         return ResponseEntity.ok("success");
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deletePlugin(@RequestBody String pluginCode) {
+        return ResponseEntity.ok(pluginService.delete(pluginCode));
+    }
 }
