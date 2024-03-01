@@ -1,7 +1,6 @@
 package com.fayardev.plugindemo.controller;
 
 import com.fayardev.plugindemo.dto.UserDto;
-import com.fayardev.plugindemo.loader.utils.TemplateRenamer;
 import com.fayardev.plugindemo.plugin.PluginContainer;
 import com.fayardev.plugindemo.plugin.PluginTypeName;
 import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;

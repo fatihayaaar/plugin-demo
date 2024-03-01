@@ -1,11 +1,8 @@
 package com.fayardev.plugindemo.controller;
 
-import com.fayardev.plugindemo.loader.packageloader.PluginLoader;
-import com.fayardev.plugindemo.loader.packageloader.container.LoaderContainer;
-import com.fayardev.plugindemo.loader.packageloader.container.LoaderName;
-import com.fayardev.plugindemo.loader.utils.TemplateRenamer;
 import com.fayardev.plugindemo.service.PluginService;
 import com.fayardev.plugindemo.loader.utils.ZipExtractor;
+import com.fayardev.plugindemo.service.PluginTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -37,15 +34,5 @@ public class PluginController {
     public ResponseEntity<?> loadPlugin(@RequestBody String pluginName) {
         pluginService.load(pluginName);
         return ResponseEntity.ok("success");
-    }
-
-    @GetMapping("/template")
-    public ResponseEntity<byte[]> getTemplate() throws IOException {
-        TemplateRenamer.rename();
-        File file = pluginService.getTemplate();
-        byte[] fileContent = FileCopyUtils.copyToByteArray(file);
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=" + file.getName())
-                .body(fileContent);
     }
 }
