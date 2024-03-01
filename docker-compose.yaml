@@ -29,7 +29,7 @@ services:
       - "8080:8080"
     restart: on-failure
     depends_on:
-      gateway-server:
+      postgres:
         condition: service_healthy
     networks:
       - plugindemo

@@ -44,19 +44,22 @@ public class UnzipUtil implements Runnable {
             }
             while (zipEntry != null) {
                 File newFile = newFile(destDirectory, zipEntry);
-                if (zipEntry.isDirectory()) {
-                    newFile.mkdirs();
-                } else {
-                    File parent = newFile.getParentFile();
-                    if (!parent.exists()) {
-                        parent.mkdirs();
+
+                if (!zipEntry.getName().startsWith(".") && !zipEntry.getName().startsWith("__")) {
+                    if (zipEntry.isDirectory()) {
+                        newFile.mkdirs();
+                    } else {
+                        File parent = newFile.getParentFile();
+                        if (!parent.exists()) {
+                            parent.mkdirs();
+                        }
+                        FileOutputStream fos = new FileOutputStream(newFile);
+                        int len;
+                        while ((len = zis.read(buffer)) > 0) {
+                            fos.write(buffer, 0, len);
+                        }
+                        fos.close();
                     }
-                    FileOutputStream fos = new FileOutputStream(newFile);
-                    int len;
-                    while ((len = zis.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
-                    }
-                    fos.close();
                 }
                 zipEntry = zis.getNextEntry();
             }

@@ -32,6 +32,9 @@ public class PluginTemplateService {
     @Value("${plugin.source.path}")
     private String pluginSourcePath;
 
+    @Value("${plugin.source.base.path}")
+    private String pluginSourceBasePath;
+
     private final PluginService service;
 
     @Autowired
@@ -56,6 +59,8 @@ public class PluginTemplateService {
             pluginClassAdd(pluginCode, pluginTypeName);
         });
 
+        addSettingsGradle(pluginCode);
+
         CompressUtil compressUtil = CompressUtil.getInstance();
         compressUtil.setSourceDirPath(pluginTemplatePath);
         compressUtil.setZipFilePath(newZipFilePath);
@@ -65,16 +70,13 @@ public class PluginTemplateService {
 
         FileUtil.deleteDirectory(new File(pluginTemplatePath));
 
-        PluginDto pluginDto = PluginDto.builder().pluginName(pluginCode).pluginCode(pluginCode).build();
-        service.add(pluginDto);
-
         return new File(newZipFilePath);
     }
 
     private void pluginClassAdd(String pluginCode, PluginTypeName pluginTypeName) {
         FileUtil.addDirectory(pluginTemplatePath + File.separator + pluginSourcePath + File.separator + pluginCode);
 
-        String pluginClassPath = pluginTemplatePath + File.separator + pluginSourcePath + File.separator + pluginCode + File.separator + pluginTypeName  + ".java";
+        String pluginClassPath = pluginTemplatePath + File.separator + pluginSourceBasePath + File.separator + pluginCode + File.separator + pluginTypeName  + ".java";
         String pluginClassPackage = "package " + pluginPackage + "." + pluginCode + ";";
         FileUtil.addFile(pluginClassPath);
         FileUtil.fileWriter(pluginClassPath, pluginAssetDir + File.separator + pluginTypeName + ".java");
@@ -91,5 +93,11 @@ public class PluginTemplateService {
 
         FileUtil.addFile(pluginAdapterPath);
         FileUtil.fileWriter(pluginAdapterPath, pluginAssetDir + File.separator + pluginAdapterName);
+    }
+
+    private void addSettingsGradle(String pluginCode) {
+        String settingsGradlePath = pluginTemplatePath + File.separator + "settings.gradle";
+        FileUtil.addFile(settingsGradlePath);
+        FileUtil.addFileContent(settingsGradlePath, "rootProject.name = '" + pluginCode + "'");
     }
 }

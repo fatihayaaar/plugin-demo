@@ -54,21 +54,23 @@ public class ZipExtractor {
                 File newFile = new File(destDir + File.separator + zipEntry.getName());
 
                 new File(newFile.getParent()).mkdirs();
-                if (!zipEntry.isDirectory()) {
-                    try (FileOutputStream fos = new FileOutputStream(newFile)) {
-                        int len;
-                        while ((len = zis.read(buffer)) > 0) {
-                            fos.write(buffer, 0, len);
+                if (!zipEntry.getName().startsWith(".") && !zipEntry.getName().startsWith("__")) {
+                    if (!zipEntry.isDirectory()) {
+                        try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                            int len;
+                            while ((len = zis.read(buffer)) > 0) {
+                                fos.write(buffer, 0, len);
+                            }
                         }
-                    }
 
-                    if (fileName.startsWith("plugin")) {
-                        moveFile(newFile.toPath(), new File(pluginDir + File.separator + newFile.getName()).toPath());
+                        if (fileName.startsWith("plugin")) {
+                            moveFile(newFile.toPath(), new File(pluginDir + File.separator + newFile.getName()).toPath());
+                        } else {
+                            moveFile(newFile.toPath(), new File(libraryDir + File.separator + File.separator + newFile.getName()).toPath());
+                        }
                     } else {
-                        moveFile(newFile.toPath(), new File(libraryDir + File.separator + File.separator + newFile.getName()).toPath());
+                        newFile.mkdirs();
                     }
-                } else {
-                    newFile.mkdirs();
                 }
                 zipEntry = zis.getNextEntry();
             }

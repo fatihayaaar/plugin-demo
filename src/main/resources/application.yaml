@@ -33,3 +33,5 @@ plugin:
     path: template/plugin-template
   source:
     path: src/main/java/com/fayardev/plugindemo/plugin
+    base:
+      path: src/main/java/com/fayardev/plugindemo

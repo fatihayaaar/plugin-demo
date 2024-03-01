@@ -14,7 +14,7 @@ import java.io.IOException;
 @RequestMapping("/api/plugin-template")
 public class PluginTemplateController {
 
-    private PluginTemplateService service;
+    private final PluginTemplateService service;
 
     public PluginTemplateController(PluginTemplateService service) {
         this.service = service;
