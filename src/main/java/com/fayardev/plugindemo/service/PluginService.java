@@ -41,9 +41,9 @@ public class PluginService {
 
     public void uploadPlugin(MultipartFile file, String pluginName) throws IOException {
         String pluginCode = FileUtil.getFileNameWithoutExtension(file.getOriginalFilename());
-        fileService.uploadFile(file);
         PluginDto pluginDto = PluginDto.builder().pluginCode(pluginCode).pluginName(pluginName).build();
         add(pluginDto);
+        fileService.uploadFile(file);
     }
 
     public void load(String pluginName) {

@@ -15,6 +15,10 @@ public class FileService {
     private String uploadDirectory;
 
     public void uploadFile(MultipartFile file) throws IOException {
+        File uploadFile = new File(uploadDirectory);
+
+        if (!uploadFile.exists()) uploadFile.mkdir();
+
         if (!file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             try {
