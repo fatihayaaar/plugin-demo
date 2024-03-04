@@ -9,4 +9,6 @@ public interface IClassRepository<T> {
     void addClassMap(Map<String, T> classMap);
 
     T getClass(String className);
+
+    void delete(String className);
 }

@@ -33,4 +33,8 @@ public class ClassHelper {
     public Class<?> get(String className) {
         return classes.get(className);
     }
+
+    public void delete(String className) {
+        classes.remove(className);
+    }
 }

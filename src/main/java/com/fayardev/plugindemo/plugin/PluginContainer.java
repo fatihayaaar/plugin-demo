@@ -4,13 +4,14 @@ import com.fayardev.plugindemo.loader.repository.ClassRepository;
 import com.fayardev.plugindemo.plugin.adapter.FilePluginAdapter;
 import com.fayardev.plugindemo.plugin.adapter.PluginAdapter;
 import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;
+import lombok.Getter;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class PluginContainer {
 
     private static PluginContainer instance;
-    private ClassRepository classRepository;
+    @Getter private ClassRepository classRepository;
     private final String pluginPackage = "com.fayardev.plugindemo";
 
     private PluginContainer() {
@@ -30,4 +31,5 @@ public class PluginContainer {
             case FILE_PLUGIN -> (FilePluginAdapter) object;
         };
     }
+
 }

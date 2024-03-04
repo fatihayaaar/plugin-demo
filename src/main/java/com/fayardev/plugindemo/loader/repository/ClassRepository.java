@@ -1,5 +1,6 @@
 package com.fayardev.plugindemo.loader.repository;
 
+import com.fayardev.plugindemo.loader.classremover.ClassRemover;
 import com.fayardev.plugindemo.loader.helper.ClassHelper;
 import com.fayardev.plugindemo.loader.repository.abstracts.IClassRepository;
 
@@ -28,5 +29,11 @@ public class ClassRepository implements IClassRepository<Class<?>> {
     @Override
     public Class<?> getClass(String className) {
         return classHelper.get(className);
+    }
+
+    @Override
+    public void delete(String className) {
+        ClassRemover.unloadClass(getClass(className));
+        classHelper.delete(className);
     }
 }

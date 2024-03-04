@@ -1,19 +1,20 @@
 package com.fayardev.plugindemo.controller;
 
+import com.fayardev.plugindemo.dto.PluginDto;
+import com.fayardev.plugindemo.plugin.PluginContainer;
 import com.fayardev.plugindemo.service.PluginService;
 import com.fayardev.plugindemo.loader.utils.ZipExtractor;
-import com.fayardev.plugindemo.service.PluginTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/plugin")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PluginController {
 
     private final PluginService pluginService;
@@ -38,6 +39,12 @@ public class PluginController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deletePlugin(@RequestBody String pluginCode) {
-        return ResponseEntity.ok(pluginService.delete(pluginCode));
+        PluginContainer.getInstance().getClassRepository().delete(pluginCode);
+        return null;
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<PluginDto>> getAll() {
+        return ResponseEntity.ok(pluginService.getAll());
     }
 }

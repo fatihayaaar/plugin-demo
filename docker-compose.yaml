@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data8:/var/lib/postgresql/data
     networks:
       plugindemo:
 
@@ -35,7 +35,7 @@ services:
       - plugindemo
 
 volumes:
-  postgres_data:
+  postgres_data8:
 
 networks:
   plugindemo:

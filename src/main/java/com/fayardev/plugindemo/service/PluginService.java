@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PluginService {
@@ -63,6 +66,11 @@ public class PluginService {
 
     public PluginDto findByPluginCode(String pluginCode) {
         return modelMapper.map(repository.findByPluginCode(pluginCode).orElseThrow(IllegalAccessError::new), PluginDto.class);
+    }
+
+    public List<PluginDto> getAll() {
+        List<Plugin> plugins = repository.findAll();
+        return plugins.stream().map(plugin -> modelMapper.map(plugin, PluginDto.class)).collect(Collectors.toList());
     }
 
     public boolean delete(String pluginCode) {

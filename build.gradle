@@ -36,8 +36,16 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.register('runWithAgent', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 jar {
     manifest {
-        attributes 'Main-Class': 'com.fayardev.plugindemo.PlugindemoApplication'
+        attributes(
+                'Premain-Class': 'com.fayardev.plugindemo.loader.classremover.MyAgent',
+                'Agent-Class': 'com.fayardev.plugindemo.loader.classremover.MyAgent',
+                'Main-Class': 'com.fayardev.plugindemo.PlugindemoApplication'
+        )
     }
 }
