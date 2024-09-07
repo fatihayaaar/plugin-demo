@@ -1,7 +1,75 @@
-Plugin Demo
+##  Plugin Demo
 
-# Plugin Upload Page
-<img width="1407" alt="Ekran Resmi 2024-05-13 14 40 59" src="https://github.com/fatihayaaar/plugin-demo/assets/18555532/b098bf85-2852-4434-9292-043b6b65d654">
 
-# Plugin Template Download Page
-<img width="1420" alt="Ekran Resmi 2024-05-13 14 41 19" src="https://github.com/fatihayaaar/plugin-demo/assets/18555532/9134fe22-99d8-4fee-8302-93b35f1e809d">
+
+## Introduction
+
+
+
+## Installation
+
+```shell
+docker-compose up -d
+```
+
+## Test
+
+#### Build Template
+
+```shell
+curl -X POST http://localhost:8080/api/plugin-template/build \
+-H "Content-Type: application/json" \
+-d '{
+    "pluginTypeNames": [
+        "USER_PLUGIN"
+    ]
+}'
+```
+
+
+
+#### Build Project
+
+```java
+public class User implements UserPluginAdapter {
+
+    @Override
+    public boolean confirm(String username, String password) {
+        return Objects.equals(username, "fayar") && Objects.equals(password, "fayar");
+    }
+
+}
+```
+
+
+
+#### Upload File
+
+```shell
+curl -X POST http://localhost:8080/api/plugin/upload \
+-F "file=@/dosyanin/yolu/dosyaadi"
+```
+
+
+
+#### Load File
+
+```shell
+curl -X POST http://localhost:8080/api/plugin/load \
+-H "Content-Type: text/plain" \
+--data "plugin20240907235922183"
+```
+
+
+
+#### Plugin Test
+
+```shell
+curl -X POST http://localhost:8080/api/plugin/user/plugin20240907235922183/verify \
+-H "Content-Type: application/json" \
+-d '{
+    "username": "fayar",
+    "password": "fayar"
+}'
+```
+

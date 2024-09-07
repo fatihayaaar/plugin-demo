@@ -1,8 +1,6 @@
 package com.fayardev.plugindemo.service;
 
-import com.fayardev.plugindemo.dto.PluginDto;
 import com.fayardev.plugindemo.plugin.PluginTypeName;
-import com.fayardev.plugindemo.plugin.adapter.UserPluginAdapter;
 import com.fayardev.plugindemo.utils.CompressUtil;
 import com.fayardev.plugindemo.utils.FileUtil;
 import com.fayardev.plugindemo.utils.IDGenerator;
@@ -34,13 +32,6 @@ public class PluginTemplateService {
 
     @Value("${plugin.source.base.path}")
     private String pluginSourceBasePath;
-
-    private final PluginService service;
-
-    @Autowired
-    public PluginTemplateService(PluginService service) {
-        this.service = service;
-    }
 
     public File templateBuild(List<PluginTypeName> pluginTypeNames) throws InterruptedException {
         String pluginCode = "plugin" + IDGenerator.generate();
