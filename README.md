@@ -1,6 +1,7 @@
 ##  Plugin Demo
 
 This project is a Java plugin application developed using Spring and Java Class Loader. Various design patterns have been implemented in the application, which also supports dynamic inclusion of formats at runtime. It allows adding new features and formats by including JAR files at runtime.
+![Adsız-2024-08-25-1346](https://github.com/user-attachments/assets/e83559b3-841a-43a8-945f-c02535335b08)
 
 ## Introduction
 
